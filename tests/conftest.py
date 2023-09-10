@@ -22,7 +22,12 @@ def elastic_service():
         docker_image_name, detach=True,
         ports={'9200': port},
         environment={'discovery.type': 'single-node'},
-        name=docker_container_name)
+        name=docker_container_name,
+        healthcheck={ 
+            'test': ['CMD-SHELL', "curl -s http://localhost:9200/_cluster/health | grep -vq '\"status\": \"red\"'"],
+            'interval': 20 * 1_000_000,
+            'retries': 10
+        })
 
     for _ in range(60):
         if _check_running(docker_client, docker_container_name):
