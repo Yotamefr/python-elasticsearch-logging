@@ -67,7 +67,7 @@ class ElasticHandler(Handler):
 
             return es_client
         except es.exceptions.ConnectionError:
-            logging.error("Can't connect to Elasticsearch host - {host}")
+            logging.error(f"Can't connect to Elasticsearch host - {host}")
 
             return None
         except:
