@@ -80,13 +80,15 @@ class ElasticSendingHandler(Handler):
         timestamp_iso = timestamp_dt.isoformat()
 
         message = record.msg_object
+        exc_info = record.exc_info_object
 
         action = {
             '_index': self._index,
             '_op_type': 'index',
             '@timestamp': timestamp_iso,
             'level': record.levelname,
-            'content': message
+            'content': message,
+            'exc_info': exc_info
         }
 
         return action
