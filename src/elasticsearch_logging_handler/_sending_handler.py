@@ -1,7 +1,7 @@
 
 import sys
 from datetime import datetime
-from logging import Handler, LogRecord
+from logging import Handler, LogRecord, Formatter
 import threading
 import traceback as tb
 
@@ -80,7 +80,8 @@ class ElasticSendingHandler(Handler):
         timestamp_iso = timestamp_dt.isoformat()
 
         message = record.msg_object
-        exc_info = record.exc_info_object
+        exc_info = Formatter().formatException(
+                record.exc_info_object) if record.exc_info_object is not None else None
 
         action = {
             '_index': self._index,
