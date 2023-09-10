@@ -16,7 +16,7 @@ def test_write_text(elastic_host, debug_logger):
     test_logger = debug_logger(handler)
     test_logger.exception(content)
 
-    sleep(3)  # Wait for batch + send latency + new index creation
+    sleep(10)  # Wait for batch + send latency + new index creation
 
     raw_result = requests.get(f'{elastic_host}/{index}/_search')
     json_result = raw_result.json()
@@ -41,7 +41,7 @@ def test_write_object(elastic_host, debug_logger):
     test_logger = debug_logger(handler)
     test_logger.warning(content)
 
-    sleep(3)  # Wait for batch + send latency + new index creation
+    sleep(10)  # Wait for batch + send latency + new index creation
 
     raw_result = requests.get(f'{elastic_host}/{index}/_search')
     json_result = raw_result.json()
